@@ -1,35 +1,7 @@
-<script>
-export default {
-    vuex: {
-        getters: {
-            user: ({ user }) => user,
-            session: ({ sessions, currentSessionId }) => sessions.find(session => session.id === currentSessionId)
-        }
-    },
-    filters: {
-        // 将日期过滤为 hour:minutes
-        time (date) {
-            if (typeof date === 'string') {
-                date = new Date(date);
-            }
-            return date.getHours() + ':' + date.getMinutes();
-        }
-    },
-    directives: {
-        // 发送消息后滚动到底部
-        'scroll-bottom' () {
-            this.vm.$nextTick(() => {
-                this.el.scrollTop = this.el.scrollHeight - this.el.clientHeight;
-            });
-        }
-    }
-};
-</script>
-
 <template>
 <div class="message" v-scroll-bottom="session.messages">
     <ul v-if="session">
-        <li v-for="item in session.messages">
+        <li v-for="(item, index) in session.messages" :key="index">
             <p class="time">
                 <span>{{ item.date | time }}</span>
             </p>
@@ -41,6 +13,48 @@ export default {
     </ul>
 </div>
 </template>
+
+<script>
+export default {
+    data () {
+        return {
+            session : this.$store.getters.session,
+            user : this.$store.getters.user
+        }
+    },
+    watch : {
+        session : {
+            handler: function (val, oldVal) { 
+                this.session = val;
+             },
+            deep: true
+        }
+    },
+    /* vuex: {
+        getters: {
+            user: ({ user }) => user,
+            session: ({ sessions, currentSessionId }) => sessions.find(session => session.id === currentSessionId)
+        }
+    }, */
+    filters: {
+        // 将日期过滤为 hour:minutes
+        time (date) {
+            if (typeof date === 'string') {
+                date = new Date(date);
+            }
+            return date.getHours() + ':' + date.getMinutes();
+        }
+    },
+    /* directives: {
+        // 发送消息后滚动到底部
+        'scroll-bottom' () {
+            this.$nextTick(() => {
+                this.el.scrollTop = this.el.scrollHeight - this.el.clientHeight;
+            });
+        }
+    } */
+};
+</script>
 
 <style lang="less" scoped>
 .message {

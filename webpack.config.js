@@ -45,6 +45,7 @@ module.exports = {
     },
     // webpack-dev-server配置
     devServer: {
+        contentBase: "./",//本地服务器所加载的页面所在的目录
         historyApiFallback: true,
         noInfo: true
     },
