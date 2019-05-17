@@ -1,10 +1,16 @@
+<template>
+<div class="text">
+    <textarea placeholder="按 Ctrl + Enter 发送" v-model="content" @keyup="onKeyup"></textarea>
+</div>
+</template>
+
 <script>
-import { actions } from '../store';
+// import { actions } from '../store';
 
 export default {
-    vuex: {
+    /* vuex: {
         actions: actions
-    },
+    }, */
     data () {
         return {
             content: ''
@@ -13,19 +19,14 @@ export default {
     methods: {
         onKeyup (e) {
             if (e.ctrlKey && e.keyCode === 13 && this.content.length) {
-                this.sendMessage(this.content);
+                this.$store.dispatch('sendMessage', this.content );
+                // this.sendMessage(this.content);
                 this.content = '';
             }
         }
     }
 };
 </script>
-
-<template>
-<div class="text">
-    <textarea placeholder="按 Ctrl + Enter 发送" v-model="content" @keyup="onKeyup"></textarea>
-</div>
-</template>
 
 <style lang="less" scoped>
 .text {

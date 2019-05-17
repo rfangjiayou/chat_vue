@@ -1,33 +1,38 @@
-<script>
-import { actions } from '../store';
-
-export default {
-    vuex: {
-        actions: actions,
-        getters: {
-            user: ({ user }) => user,
-            filterKey: ({ filterKey }) => filterKey
-        }
-    },
-    methods: {
-        onKeyup (e) {    //| debounce 150
-            this.search(e.target.value);
-        }
-    }
-};
-</script>
-
 <template>
 <div class="card">
     <header>
-        <img class="avatar" width="40" height="40" :alt="user.name" :src="user.img">
-        <p class="name">{{user.name}}</p>
+        <img class="avatar" width="40" height="40" :alt="this.user.name" :src="this.user.img">
+        <p class="name">{{this.user.name}}</p>
     </header>
     <footer>
         <input class="search" type="text" placeholder="search user..." @keyup="onKeyup">
     </footer>
 </div>
 </template>
+
+<script>
+// import { actions } from '../store';
+
+export default {
+    data () {
+        return {
+            user : this.$store.getters.user
+        }
+    },
+    /* vuex: {
+        actions: actions,
+        getters: {
+            user: ({ user }) => user,
+            filterKey: ({ filterKey }) => filterKey
+        }
+    }, */
+    methods: {
+        onKeyup (e) {    //| debounce 150
+            this.$store.dispatch('search', e.target.value);
+        }
+    }
+};
+</script>
 
 <style scoped lang="less">
 .card {

@@ -1,8 +1,30 @@
+<template>
+<div class="list">
+    <ul>
+        <li v-for="(item, index) in sessions" :key='index' :class="{ active: item.id === currentId }" @click="selectSession(item.id)">
+            <img class="avatar"  width="30" height="30" :alt="item.user.name" :src="item.user.img">
+            <p class="name">{{item.user.name}}</p>
+        </li>
+    </ul>
+</div>
+</template>
+
 <script>
-import { actions } from '../store';
+// import { actions } from '../store';
 
 export default {
-    vuex: {
+    data () {
+        return {
+            sessions : this.$store.getters.filterSessions,
+            currentId : this.$store.getters.currentSessionId
+        }
+    },
+    methods : {
+        selectSession (id) {
+            this.$store.dispatch('selectSession', id)
+        }
+    }
+    /* vuex: {
         actions: actions,
         getters: {
             // 过滤后的会话列表
@@ -13,20 +35,9 @@ export default {
             // 当前会话index
             currentId: ({ currentSessionId }) => currentSessionId
         }
-    }
+    } */
 };
 </script>
-
-<template>
-<div class="list">
-    <ul>
-        <li v-for="item in sessions" :class="{ active: item.id === currentId }" @click="selectSession(item.id)">
-            <img class="avatar"  width="30" height="30" :alt="item.user.name" :src="item.user.img">
-            <p class="name">{{item.user.name}}</p>
-        </li>
-    </ul>
-</div>
-</template>
 
 <style scoped lang="less">
 .list {
