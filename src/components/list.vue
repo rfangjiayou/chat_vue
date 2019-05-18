@@ -1,7 +1,7 @@
 <template>
 <div class="list">
     <ul>
-        <li v-for="(item, index) in sessions" :key='index' :class="{ active: item.id === currentId }" @click="selectSession(item.id)">
+        <li v-for="(item, index) in sessions" :key='index' :class="{ active: item.id === currentSessionId }" @click="selectSession(item.id)">
             <img class="avatar"  width="30" height="30" :alt="item.user.name" :src="item.user.img">
             <p class="name">{{item.user.name}}</p>
         </li>
@@ -10,32 +10,21 @@
 </template>
 
 <script>
-// import { actions } from '../store';
 
 export default {
-    data () {
-        return {
-            sessions : this.$store.getters.filterSessions,
-            currentId : this.$store.getters.currentSessionId
-        }
-    },
     methods : {
         selectSession (id) {
             this.$store.dispatch('selectSession', id)
         }
-    }
-    /* vuex: {
-        actions: actions,
-        getters: {
-            // 过滤后的会话列表
-            sessions: ({ sessions, filterKey }) => {
-                let result = sessions.filter(session => session.user.name.includes(filterKey));
-                return result;
-            },
-            // 当前会话index
-            currentId: ({ currentSessionId }) => currentSessionId
+    },
+    computed:{
+        currentSessionId () {
+            return this.$store.getters.currentSessionId;
+        },
+        sessions () {
+            return this.$store.getters.filterSessions;
         }
-    } */
+    }
 };
 </script>
 

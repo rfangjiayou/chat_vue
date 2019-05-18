@@ -1,5 +1,4 @@
 <script>
-// import { actions } from './store';
 
 import card from 'components/card';
 import list from 'components/list';
@@ -8,11 +7,7 @@ import message from 'components/message';
 
 export default {
     components: { card, list, writeText, message },
-    /* vuex: {
-        actions: actions
-    }, */
     created () {
-        // this.initData();
         this.$store.dispatch('initData');
     }
 }
