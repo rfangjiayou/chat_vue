@@ -16,43 +16,28 @@
 
 <script>
 export default {
-    data () {
-        return {
-            session : this.$store.getters.session,
-            user : this.$store.getters.user
+    computed:{
+        session () {
+            return this.$store.getters.session;
+        },
+        user () {
+            return this.$store.getters.user;
         }
     },
-    watch : {
-        session : {
-            handler: function (val, oldVal) { 
-                this.session = val;
-             },
-            deep: true
-        }
-    },
-    /* vuex: {
-        getters: {
-            user: ({ user }) => user,
-            session: ({ sessions, currentSessionId }) => sessions.find(session => session.id === currentSessionId)
-        }
-    }, */
     filters: {
         // 将日期过滤为 hour:minutes
         time (date) {
             if (typeof date === 'string') {
                 date = new Date(date);
             }
-            return date.getHours() + ':' + date.getMinutes();
+            return date.getFullYear() + '年' + 
+                   date.getMonth() + '月' + 
+                   date.getDate() + '日' +
+                   ' ' +
+                   date.getHours() + ':' + 
+                   (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
         }
     },
-    /* directives: {
-        // 发送消息后滚动到底部
-        'scroll-bottom' () {
-            this.$nextTick(() => {
-                this.el.scrollTop = this.el.scrollHeight - this.el.clientHeight;
-            });
-        }
-    } */
 };
 </script>
 

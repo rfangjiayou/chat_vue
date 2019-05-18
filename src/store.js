@@ -27,10 +27,10 @@ const store = new Vuex.Store({
                 },
                 messages: [
                     {
-                        content: 'Hello，这是一个基于Vue + Vuex + Webpack构建的简单chat示例，聊天记录保存在localStorge。',
+                        content: 'Hello，这是一个基于Vue + Vuex + Webpack构建的wechat示例，聊天记录保存在localStorge，并支持过滤联系人',
                         date: now
                     }, {
-                        content: '项目地址: ',
+                        content: '项目地址: https://github.com/rfangjiayou/chat_vue',
                         date: now
                     }
                 ]
@@ -107,9 +107,3 @@ store.watch(
 );
 
 export default store;
-/* export const actions = {
-    initData: ({ dispatch }) => dispatch('INIT_DATA'),
-    sendMessage: ({ dispatch }, content) => dispatch('SEND_MESSAGE', content),
-    selectSession: ({ dispatch }, id) => dispatch('SELECT_SESSION', id),
-    search: ({ dispatch }, value) => dispatch('SET_FILTER_KEY', value)
-}; */

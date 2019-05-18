@@ -11,21 +11,13 @@
 </template>
 
 <script>
-// import { actions } from '../store';
 
 export default {
-    data () {
-        return {
-            user : this.$store.getters.user
+    computed:{
+        user () {
+            return this.$store.getters.user;
         }
     },
-    /* vuex: {
-        actions: actions,
-        getters: {
-            user: ({ user }) => user,
-            filterKey: ({ filterKey }) => filterKey
-        }
-    }, */
     methods: {
         onKeyup (e) {    //| debounce 150
             this.$store.dispatch('search', e.target.value);
